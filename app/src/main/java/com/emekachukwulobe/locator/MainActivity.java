@@ -50,29 +50,7 @@ public class MainActivity extends AppCompatActivity {
 //            locations.get(i).setDistance(myLocation);
 //        }
 //
-//        // Later, browse on how to sort objects by one of their properties
-//
-//        HashSet<Integer> distances = new HashSet<>();
-//
-//        for (int i = 0; i < locations.size(); i++){
-//            distances.add(locations.get(i).getDistance());
-//        }
-//
-//
-//        ArrayList<Integer> sortedDistances = new ArrayList<>(distances);
-//        Collections.sort(sortedDistances);
-//
-//        ArrayList<EventLocation> closestEvents = new ArrayList<>();
-//
-//        for (int i = 0; i < sortedDistances.size(); i ++){
-//            for (int j = 0; j < locations.size(); j++){
-//
-//                if (sortedDistances.get(i) == locations.get(j).getDistance()){
-//                    closestEvents.add(locations.get(j));
-//                }
-//
-//            }
-//        }
+
 
         coordinatesText = findViewById(R.id.coordinates);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -96,8 +74,33 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "E no work o", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    ArrayList<EventLocation> sortEventLocations(ArrayList<EventLocation> locations){
+        // Later, browse on how to sort objects by one of their properties
+
+        HashSet<Integer> distances = new HashSet<>();
+
+        for (int i = 0; i < locations.size(); i++){
+            distances.add(locations.get(i).getDistance());
+        }
 
 
+        ArrayList<Integer> sortedDistances = new ArrayList<>(distances);
+        Collections.sort(sortedDistances);
 
+        ArrayList<EventLocation> closestEvents = new ArrayList<>();
+
+        for (int i = 0; i < sortedDistances.size(); i ++){
+            for (int j = 0; j < locations.size(); j++){
+
+                if (sortedDistances.get(i) == locations.get(j).getDistance()){
+                    closestEvents.add(locations.get(j));
+                }
+
+            }
+        }
+
+        return closestEvents;
     }
 }
